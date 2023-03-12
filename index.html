@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <script src="https://kit.fontawesome.com/3286f63573.js" crossorigin="anonymous"></script>
+    <title>Weather</title>
+</head>
+<body>
+    <!--Start Page-->
+    <div class="container">
+        <div class="start">
+            <h1 class="start_title">Weather<br><span>Forecasts</span></h1>
+            <img src="./images/few_clouds_day.svg" alt="Weather Icon" class="start_img">
+            <a href="#inputs" class="start_btn">Get Started</a>
+        </div>
+
+        <!--Input and Current Location-->
+        <div class="input-weather" id="inputs">
+            <h1 class="start_title">Weather<br><span>Forecasts</span></h1>
+            <p class="input_info"></p>
+            <input type="text" spellcheck="false" placeholder="Enter city name" required>
+            <div class="divider">or</div>
+            <button>Use your current location</button>
+        </div>
+
+        <!--Weather Information-->
+        <div class="weather">
+            <button><i class="fa-solid fa-arrow-left"></i></button>
+            <img src="./images/few_clouds_day.svg" alt="Weather Icon" class="weather_img">
+            <div class="temperature">
+                <span></span>
+                <span>°C</span>
+            </div>
+            <div class="descr">broken clouds</div>
+            <div class="location">
+                <i class="fa-solid fa-map-pin"></i>
+                <span class="city">Medellin, Colombia</span>
+            </div>
+            <div class="weather_details">
+                <div class="details">
+                    <div class="feels">
+                        <i class="fa-solid fa-temperature-half"></i>
+                        <div class="info">
+                            <div class="temp">
+                                <span></span>
+                                <span>°C</span>
+                            </div>
+                            <p>Feels like</p>
+                        </div>
+                    </div>
+                    <div class="wind">
+                        <i class="fa-solid fa-wind"></i>
+                        <div class="info">
+                            <div class="speed">
+                                <span></span>
+                                <span>km/h</span>
+                            </div>
+                            <p>Wind</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="humidity">
+                        <i class="fa-solid fa-droplet"></i>
+                        <div class="info">
+                            <span></span>
+                            <span>%</span>
+                            <p>Humidity</p>
+                        </div>
+                    </div>
+                    <div class="pressure">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <div class="info">
+                            <div class="pressure_span">
+                                <span></span>
+                                <span>hPa</span>
+                            </div>
+                            <p>Pressure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>
