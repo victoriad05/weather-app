@@ -1,4 +1,3 @@
-const API_KEY = '';
 const container = document.querySelector('.container');
 const startBtn = document.querySelector('.start_btn')
 const weatherInput =  document.querySelector('.input-weather');
@@ -21,6 +20,18 @@ inputField.addEventListener('keydown', e => {
     }
 });
 
+function loadApiKey() {
+       return fetch('config.json')
+      .then(res => res.json())
+      .then(result => {
+        const apiKey = result.api_key;
+        return apiKey;
+      })
+      .catch(error => {
+        console.error('Error loading config.json', error);
+      });
+  }
+
 curLocation.addEventListener('click', () => {
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(success, error);
@@ -29,10 +40,12 @@ curLocation.addEventListener('click', () => {
     }
 });
 
-const success = (position) => {
+const success = (position,) => {
     const {latitude, longitude} = position.coords;
-    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}&units=metric`;
-    fetchData();
+    loadApiKey().then(apiKey => {
+        api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}&units=metric`;
+        fetchData();
+    })
 }
 
 const error = (error) => {
@@ -41,9 +54,11 @@ const error = (error) => {
 };
 
 
-function requestApi(city) {
-    api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-    fetchData();
+function requestApi(city,) {
+    loadApiKey().then(apiKey => {
+        api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        fetchData();
+    })
 }   
 
 function fetchData() {
@@ -65,10 +80,7 @@ function details(info){
         const {description, id, icon} = info.weather[0];
         const {temp, feels_like, humidity, pressure} = info.main;
         const speed = info.wind.speed;
-        // console.log(info);
-        // const icon = info.weather[0];
-        // console.log(icon);
-
+     
         const regionName = new Intl.DisplayNames(
             ['en'], {type: 'region'}
         );
@@ -81,33 +93,23 @@ function details(info){
         weatherCont.querySelector(".pressure span").innerText = pressure;
         weatherCont.querySelector(".wind span").innerText = Math.floor(speed * 3.6);
 
-        if(id >= 200 && id <= 232 && icon === '11d'){
-            weatherImg.src = "./images/thounderstorm_day.svg";
-        }else if(id >= 200 && id <= 232 && icon === '11n'){
-            weatherImg.src = "./images/thounderstorm_night.svg";
-        } else if(id >= 300 && id <= 321 || id >= 520 && id <= 531){
-            weatherImg.src = "./images/shower_rain.svg";
-        } else if(id >= 500 && id <= 504 && icon === '10d'){
-            weatherImg.src = "./images/rain_day.svg";
-        } else if(id >= 500 && id <= 504 && icon === '10n'){
-            weatherImg.src = "./images/rain_night.svg";
-        } else if(id === 511 || id >= 600 && id <= 622) {
-            weatherImg.src = "./images/snow.svg";
-        } else if(id >= 700 && id <= 781) {
-            weatherImg.src = "./images/mist.svg";
-        }else if(id == 800 && icon === '01d'){
-            weatherImg.src = "./images/clear_day.svg";
-        } else if(  id == 800 && icon === '01n'){
-            weatherImg.src = "./images/clear_night.svg";
-        }else if(id === 801 && icon === '02d'){
-            weatherImg.src = "./images/few_clouds_day.svg";
-        }else if(id === 801 && icon === '02n'){
-            weatherImg.src = "./images/few_clouds_night.svg";
-        }else if(id === 802){
-            weatherImg.src = "./images/scattered_clouds.svg";
-        } else if(id >= 803 && id <= 804){
-            weatherImg.src = "./images/broken_clouds.svg";
-        }
+        const images = {
+            "01d" : "./images/clear_day.svg",
+            "01n" : "./images/clear_night.svg",
+            "02d" : "./images/few_clouds_day.svg",
+            "02n" : "./images/few_clouds_night.svg",
+            "03d" : "./images/scattered_clouds.svg",
+            "04d" : "./images/broken_clouds.svg",
+            "09d" : "./images/shower_rain.svg",
+            "10d" : "./images/rain_day.svg",
+            "10n" : "./images/rain_night.svg",
+            "11d" : "./images/thunderstorm_day.svg",
+            "11n" : "./images/thunderstorm_night.svg",
+            "13d" : "./images/snow.svg",
+            "50d" : "./images/mist.svg",
+        };
+
+        weatherImg.src = images[icon];
     }
 }
 
