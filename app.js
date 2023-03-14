@@ -99,14 +99,19 @@ function details(info){
             "02d" : "./images/few_clouds_day.svg",
             "02n" : "./images/few_clouds_night.svg",
             "03d" : "./images/scattered_clouds.svg",
+            "03n" : "./images/scattered_clouds.svg",
             "04d" : "./images/broken_clouds.svg",
+            "04n" : "./images/broken_clouds.svg",
             "09d" : "./images/shower_rain.svg",
+            "09n" : "./images/shower_rain.svg",
             "10d" : "./images/rain_day.svg",
             "10n" : "./images/rain_night.svg",
             "11d" : "./images/thunderstorm_day.svg",
             "11n" : "./images/thunderstorm_night.svg",
             "13d" : "./images/snow.svg",
+            "13n" : "./images/snow.svg",
             "50d" : "./images/mist.svg",
+            "50n" : "./images/mist.svg",
         };
 
         weatherImg.src = images[icon];
